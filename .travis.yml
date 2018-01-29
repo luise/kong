@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+    - "6.9.0"
+    - "8.5.0"
+
+install:
+    - npm install .
+    - npm install kelda/deployment-engine-downloader && ./node_modules/.bin/kelda-downloader
+
+script:
+    - gulp lint
+    - ./kelda inspect ./kongExample.js graphviz
