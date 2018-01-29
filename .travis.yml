@@ -1,0 +1,18 @@
+language: node_js
+
+node_js:
+    - 6.9.0
+    - 8.5.0
+
+install:
+    - npm install .
+    - npm install kelda/deployment-engine-downloader && ./node_modules/.bin/kelda-downloader
+
+script:
+    - gulp lint
+    - mkdir -p ~/.kelda/infra/ && mv ./testInfra.js ~/.kelda/infra/default.js
+    - "./kelda inspect ./kongExample.js graphviz"
+
+notifications:
+  slack:
+    secure: Zotg6wCrO23caEkvC22zBHxpmrprn2C4JZ1ibpLDbSd91D2cWxunmDFBSsXMFEo4fpU6JZGzejCRLvmHQau6kDXKt1yWvUyFeySMEfzDIZvXnno+Sq2kCdIghfqYb8hTLaUM7w8GckOVsyaoWysOwNFDrKWuQb12Ga6j/l7h/mFPqo5BQQtpMwCDMJvVmAD9tzpFIxPOLplBY2kxDzurNam4UWqL8TdpXM0VMPR2T+KXmqOR0dPF1LOcTLnZoGYt7fXscPbcx0BxEbnwLGkpWSujXoKVCedoE/MjbrNjRalKnyLJ0DmalgV9Jj1QJlD3htI9RHrrwp35tE/LvENB9ayGVC46beLW6z8zfYhcEozoYqSVN4Cgzw1UpP3mGpcJd1iw+eQLl0+PuKXlTSlLnv/rXgea6PLd/WqZut+cOcxAfI7ud4YMczUF6O6JrYgUihSY15MJVYufY7UxnYp5+eNUGVvNIpfErv8RuNVonYXB4/qDBQ2zr8lrnnjhh2kjLwaLcL51lb+jedsUj66+z1NE7nIx9HuHYcyGrCasrh9bd1bfXMyQ5U7JxIm3kMXf6jpjrXXy8bo53H0kWUxBMerOlwloDft9VHgJRiCuPdrUWgcS3ph0icSuj60qeRvqAZJZBDRfVGMhDMlwP+0lidoRSkaVv74zdHNOJPG6GOs=
