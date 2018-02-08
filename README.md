@@ -10,7 +10,7 @@ Kelda](http://docs.kelda.io/#quick-start) you can launch collection of Kong
 gateways by simply running:
 
 ```console
-$ kelda run ./sparkRun.js
+$ kelda run ./kongExample.js
 ```
 
 More details on installation and configuration of this blueprint below.
