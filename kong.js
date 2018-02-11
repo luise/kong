@@ -20,8 +20,11 @@ class Kong {
 
     this.gateways = [];
     for (let i = 0; i < count; i += 1) {
-      this.gateways.push(new kelda.Container('kong', 'kong',
-        { env: this.kongEnv }));
+      this.gateways.push(new kelda.Container({
+        name: 'kong',
+        image: 'kong',
+        env: this.kongEnv,
+      }));
     }
 
     kelda.allowTraffic(this.gateways, postgres, 5432);
@@ -32,7 +35,9 @@ class Kong {
   // (by exactly one node).  In a production deployment, this should probably
   // be done by a human, but for example deployments this is fine for now.
   enableMigrator() {
-    this.migrator = new kelda.Container('migrator', 'kong', {
+    this.migrator = new kelda.Container({
+      name: 'migrator',
+      image: 'kong',
       command: ['sh', '-c', 'kong migrations up && tail -f /dev/null'],
       env: this.kongEnv,
     });

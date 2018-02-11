@@ -3,9 +3,9 @@ const kong = require('./kong.js');
 
 const inf = kelda.baseInfrastructure();
 
-const workerVMs = inf.machines.filter(machine => machine.role === 'Worker');
-
-const postgres = new kelda.Container('postgres', 'postgres:9.5', {
+const postgres = new kelda.Container({
+  name: 'postgres',
+  image: 'postgres:9.5',
   env: {
     POSTGRES_USER: 'kong',
     POSTGRES_DB: 'kong',
@@ -13,7 +13,7 @@ const postgres = new kelda.Container('postgres', 'postgres:9.5', {
 });
 postgres.deploy(inf);
 
-const k = new kong.Kong(workerVMs.length, postgres);
+const k = new kong.Kong(inf.workers.length, postgres);
 k.enableMigrator();
 k.exposePublic();
 k.deploy(inf);
